@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace ch.hsr.wpf.gadgeothek.ui
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Customer.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Customer : UserControl
     {
-        public MainWindow()
+        public Customer()
         {
             InitializeComponent();
-        }
-
-        private void Gadget_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

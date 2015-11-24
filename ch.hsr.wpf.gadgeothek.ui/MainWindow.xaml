@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+            </Menu>
+            <TabControl>
+                <TabItem Header="Gadget">
+                    <local:Gadget Loaded="Gadget_Loaded"/>
+                </TabItem>
+                <TabItem Header="Ausleihe">
+                    <local:Loan/>
+                </TabItem>
+                <TabItem Header="Kunde">
+                    <local:Customer/>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
     </Grid>
 </Window>

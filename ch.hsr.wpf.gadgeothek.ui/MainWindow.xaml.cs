@@ -29,5 +29,10 @@ namespace ch.hsr.wpf.gadgeothek.ui
         {
 
         }
+
+        private void Close_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

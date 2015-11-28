@@ -5,10 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ch.hsr.wpf.gadgeothek.ui"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Icon="HSR-Icon.ico"
+        Title="Gadgeothek" Height="350" Width="525">
+    <Window.InputBindings>
+        <KeyBinding Command="Close" Key="Q" Modifiers="Control" />
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="Close_Executed" />
+    </Window.CommandBindings>
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="E_xit" Command="Close">
+                        <MenuItem.Icon>
+                            <Image Source="media/stop.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
             </Menu>
             <TabControl>
                 <TabItem Header="Gadget">

@@ -21,7 +21,12 @@
         </DockPanel>
         <DockPanel Margin="5" Grid.Row="0" Grid.Column="1">
             <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Right">Ausleihe</TextBlock>
-            <GroupBox x:Name="groupBox" Header="LoanDetail" VerticalAlignment="Top"/>
+            <GroupBox x:Name="groupBox" Header="LoanDetail" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+            <DockPanel DockPanel.Dock="Bottom">
+                <Button Content="Ausleihen" />
+                <Button Content="Reservieren" />
+            </DockPanel>
+            <TextBlock></TextBlock>
         </DockPanel>
         <DockPanel Margin="5" Grid.Row="1" Grid.Column="1">
             <TextBlock DockPanel.Dock="Top" Style="{StaticResource TitleStyle}">Reservationen</TextBlock>

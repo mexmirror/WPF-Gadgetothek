@@ -11,10 +11,10 @@
         <Setter Property="Button.BorderBrush" Value="#2672EC" />
         <Setter Property="Button.BorderThickness" Value="2" />
         <Setter Property="Button.FontFamily" Value="Segoe UI" />
-        <Setter Property="Button.FontSize" Value="13" />
+        <Setter Property="Button.FontSize" Value="12" />
         <Setter Property="Button.Padding" Value="10 2 10 2" />
         <Setter Property="Button.Margin" Value="2" />
-        <Setter Property="Button.Width" Value="90" />
+        <Setter Property="Button.Width" Value="100" />
         <Setter Property="Button.Height" Value="30" />
     </Style>
 

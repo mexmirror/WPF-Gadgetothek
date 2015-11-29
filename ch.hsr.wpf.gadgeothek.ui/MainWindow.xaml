@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ch.hsr.wpf.gadgeothek.ui"
         mc:Ignorable="d"
-        Icon="HSR-Icon.ico"
-        Title="Gadgeothek" Height="350" Width="525">
+        Icon="media/HSR-Icon.ico"
+        Title="Gadgeothek" Height="550" Width="750">
     <Window.InputBindings>
         <KeyBinding Command="Close" Key="Q" Modifiers="Control" />
     </Window.InputBindings>

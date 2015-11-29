@@ -18,6 +18,9 @@
         <DockPanel Grid.Column="1" Margin="5">
             <TextBlock Style="{StaticResource TitleStyle}" DockPanel.Dock="Top">Details</TextBlock>
             <GroupBox x:Name="GroupBox" Header="GadgetName" VerticalAlignment="Top"/>
+            <Button Content="Delete Gadget" DockPanel.Dock="Bottom" HorizontalAlignment="Right"/>
+            <Button Content="Add Gadget" DockPanel.Dock="Bottom" HorizontalAlignment="Right"/>
+            <TextBlock></TextBlock>
         </DockPanel>
     </Grid>
 </UserControl>

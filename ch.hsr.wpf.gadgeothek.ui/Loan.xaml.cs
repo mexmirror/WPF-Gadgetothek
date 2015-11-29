@@ -23,6 +23,7 @@ namespace ch.hsr.wpf.gadgeothek.ui
         public Loan()
         {
             InitializeComponent();
+            
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using ch.hsr.wpf.gadgeothek.service;
 
 namespace ch.hsr.wpf.gadgeothek.ui
 {
@@ -13,5 +14,8 @@ namespace ch.hsr.wpf.gadgeothek.ui
     /// </summary>
     public partial class App : Application
     {
+        private const string _url = "http://mge1.dev.ifs.hsr.ch/";
+        public static readonly LibraryAdminService Service = new LibraryAdminService(_url);
+        public static string Url => _url;
     }
 }

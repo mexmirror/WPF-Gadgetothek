@@ -13,30 +13,31 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ch.hsr.wpf.gadgeothek.domain;
 using ch.hsr.wpf.gadgeothek.service;
+using ch.hsr.wpf.gadgeothek.ui.Controls;
 using ch.hsr.wpf.gadgeothek.ui.viewmodel;
 
 namespace ch.hsr.wpf.gadgeothek.ui
 {
     /// <summary>
-    /// Interaction logic for Gadget.xaml
+    /// Interaction logic for GadgetView.xaml
     /// </summary>
-    public partial class Gadget : UserControl
+    public partial class GadgetView : UserControl
     {
-        private LibraryAdminService service;
-        private readonly static string url = "http://mge1.dev.ifs.hsr.ch/";
-        private List<domain.Gadget> gadgets;
-        private bool isEditBoxFilled = false;
+        private LibraryAdminService service = App.Service;
+        private List<Gadget> gadgets;
+        private readonly EditButton _editButton;
         public ObservableCollection<GadgetViewModel> GadgetViewModels { get; set; }
-        public Gadget()
+        public GadgetView()
         {
             InitializeComponent();
-            service = new LibraryAdminService(url);
             gadgets = service.GetAllGadgets();
-            GadgetGrid.ItemsSource = gadgets;
+            DataContext = this;
             GadgetGrid.IsReadOnly = true;
             GadgetViewModels = new ObservableCollection<GadgetViewModel>();
-            SetAllEditInputs(false);
+            SetFormEditability(false);
+            _editButton = new EditButton(EditButton);
             LoadModel();
         }
 
@@ -51,57 +52,48 @@ namespace ch.hsr.wpf.gadgeothek.ui
 
         private void GadgetGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (GadgetGrid.SelectedItem!= null)
+            object item = GadgetGrid.SelectedItem;
+            if (item != null)
             {
-                domain.Gadget gadget = (domain.Gadget) GadgetGrid.SelectedItem;
+                Gadget gadget = ((GadgetViewModel) item).Gadget;
                 Manufacturer.Text = gadget.Manufacturer;
                 Product.Text = gadget.Name;
                 Price.Text = gadget.Price.ToString();
-                EditButton.IsEnabled = true;
+                
+                _editButton.EditBoxFilled = true;
+                _editButton.UpdateEditButton();
             }
         }
 
-        private void SetAllEditInputs(bool boolean)
+        private string SetFormEditability(bool boolean)
         {
             Manufacturer.IsEnabled = boolean;
             Product.IsEnabled = boolean;
             Price.IsEnabled = boolean;
             SaveButton.IsEnabled = boolean;
             EditButton.IsEnabled = boolean;
+            return null;
         }
 
         private void EditButton_OnClick(object sender, RoutedEventArgs e)
         {
-            SetAllEditInputs(true);
-            SetEditButtonState(true);
+            _editButton.OnClick(ref sender, ref e, SetFormEditability);
         }
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            domain.Gadget g = ((domain.Gadget) GadgetGrid.SelectedItem);
-            g.Manufacturer = Manufacturer.Text;
-            g.Name = Product.Text;
+            Gadget temp = ((GadgetViewModel) GadgetGrid.SelectedItem).Gadget;
+            Gadget gadget = 
+                GadgetViewModels.First(g => (g.Gadget).InventoryNumber == temp.InventoryNumber).Gadget;
+            gadget.Manufacturer = Manufacturer.Text;
+            gadget.Name = Product.Text;
             double newprice;
             double.TryParse(Price.Text, out newprice);
-            g.Price = newprice;
-            //TODO: Update condition
-            service.UpdateGadget(g);
-            SetAllEditInputs(false);
-            SetEditButtonState(false);
-        }
-
-        private void SetEditButtonState(bool state)
-        {
-            if (!state)
-            {
-                EditButton.IsEnabled = true;
-                EditButton.Content = "Edit";
-            }
-            else
-            {
-                EditButton.IsEnabled = true;
-                EditButton.Content = "Discard";
-            }
+            gadget.Price = newprice;
+            service.UpdateGadget(gadget);
+            SetFormEditability(false);
+            _editButton.Editing = false;
+            _editButton.UpdateEditButton();
         }
     }
 }

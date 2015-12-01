@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ch.hsr.wpf.gadgeothek.ui
 {
     /// <summary>
-    /// Interaction logic for Loan.xaml
+    /// Interaction logic for LoanVIew.xaml
     /// </summary>
-    public partial class Loan : UserControl
+    public partial class LoanView : UserControl
     {
-        public Loan()
+        public LoanView()
         {
             InitializeComponent();
             

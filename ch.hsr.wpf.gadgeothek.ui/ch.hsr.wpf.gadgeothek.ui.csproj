@@ -55,16 +55,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\EditButton.cs" />
+    <Compile Include="viewmodel\CustomerViewModel.cs" />
     <Compile Include="viewmodel\GadgetViewModel.cs" />
-    <Page Include="Customer.xaml">
+    <Page Include="CustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Gadget.xaml">
+    <Page Include="GadgetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Loan.xaml">
+    <Page Include="LoanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -76,14 +78,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Customer.xaml.cs">
-      <DependentUpon>Customer.xaml</DependentUpon>
+    <Compile Include="CustomerView.xaml.cs">
+      <DependentUpon>CustomerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Gadget.xaml.cs">
-      <DependentUpon>Gadget.xaml</DependentUpon>
+    <Compile Include="GadgetView.xaml.cs">
+      <DependentUpon>GadgetView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Loan.xaml.cs">
-      <DependentUpon>Loan.xaml</DependentUpon>
+    <Compile Include="LoanView.xaml.cs">
+      <DependentUpon>LoanView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

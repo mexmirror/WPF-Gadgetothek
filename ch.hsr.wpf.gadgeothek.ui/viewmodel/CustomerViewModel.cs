@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ch.hsr.wpf.gadgeothek.domain;
+using ch.hsr.wpf.gadgeothek.service;
 
 namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
 {
-    public class GadgetViewModel
+    public class CustomerViewModel
     {
-        public Gadget Gadget { get; set; }
+        public Customer Customer { get; set; }
+
     }
 }

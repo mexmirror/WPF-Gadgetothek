@@ -26,13 +26,13 @@
             </Menu>
             <TabControl>
                 <TabItem Header="Gadget">
-                    <local:Gadget Loaded="Gadget_Loaded"/>
+                    <local:GadgetView Loaded="Gadget_Loaded"/>
                 </TabItem>
                 <TabItem Header="Ausleihe">
-                    <local:Loan/>
+                    <local:LoanView/>
                 </TabItem>
                 <TabItem Header="Kunde">
-                    <local:Customer/>
+                    <local:CustomerView/>
                 </TabItem>
             </TabControl>
         </DockPanel>

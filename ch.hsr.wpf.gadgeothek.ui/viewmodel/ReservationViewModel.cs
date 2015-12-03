@@ -9,21 +9,24 @@ using ch.hsr.wpf.gadgeothek.service;
 
 namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
 {
-    public class GadgetViewModel: ViewModel<Gadget>
+    public class ReservationViewModel : ViewModel<Reservation>
     {
         private readonly LibraryAdminService _adminService = App.Service;
-        public GadgetViewModel()
+
+        public ReservationViewModel()
         {
-            Collection = new ObservableCollection<Gadget>();
+            Collection = new ObservableCollection<Reservation>();
             LoadCollection();
         }
-        protected sealed override void LoadCollection()
+
+        protected override sealed void LoadCollection()
         {
-            _adminService.GetAllGadgets().ForEach((g => Collection.Add(g)));
+            _adminService.GetAllReservations().ForEach((r) => Collection.Add(r));
         }
-        public override bool Update(Gadget element)
+
+        public override bool Update(Reservation element)
         {
-            var success = _adminService.UpdateGadget(element);
+            var success = _adminService.UpdateReservation(element);
             if (success)
             {
                 LoadCollection();
@@ -31,25 +34,26 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
             return success;
         }
 
-        public override bool Delete(Gadget gadget)
+        public override bool Add(Reservation element)
         {
-            var success = _adminService.DeleteGadget(gadget);
+            var success = _adminService.AddReservation(element);
             if (success)
             {
-                Collection.Remove(gadget);
+                Collection.Add(element);
             }
             return success;
         }
 
-        public override bool Add(Gadget gadget)
+        public override bool Delete(Reservation element)
         {
-            var success = _adminService.AddGadget(gadget);
+            var success = _adminService.DeleteReservation(element);
             if (success)
             {
-                Collection.Add(gadget);
+                Collection.Remove(element);
             }
             return success;
         }
+
         public void Notify()
         {
             LoadCollection();

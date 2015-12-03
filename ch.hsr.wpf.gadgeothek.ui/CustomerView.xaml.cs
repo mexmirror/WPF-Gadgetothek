@@ -25,29 +25,18 @@ namespace ch.hsr.wpf.gadgeothek.ui
     /// </summary>
     public partial class CustomerView : UserControl
     {
-        private LibraryAdminService service = App.Service;
-        private List<Customer> customers;
         private EditButton _editButton;
-        public ObservableCollection<CustomerViewModel> CustomerViewModels { get; set; } 
+        public CustomerViewModel CustomerViewModel;
+
  
         public CustomerView()
         {
             InitializeComponent();
-            customers = service.GetAllCustomers();
             DataContext = this;
-            CustomerViewModels = new ObservableCollection<CustomerViewModel>();
-            LoadCustomer();
+            CustomerViewModel = new CustomerViewModel();
+            CustomerGrid.ItemsSource = CustomerViewModel.Collection;
             _editButton = new EditButton(EditButton);
             SetFormEditebility(false);
-        }
-
-        private void LoadCustomer()
-        {
-            CustomerViewModels.Clear();
-            customers.ForEach(customer =>
-            {
-                CustomerViewModels.Add(new CustomerViewModel {Customer=customer});
-            });
         }
 
         private void CustomerGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -55,7 +44,7 @@ namespace ch.hsr.wpf.gadgeothek.ui
             var item = CustomerGrid.SelectedItem;
             if (item != null)
             {
-                Customer customer = ((CustomerViewModel) item).Customer;
+                Customer customer = (Customer) item;
                 NameTextBox.Text = customer.Name;
                 EmailTextBox.Text = customer.Email;
                 StudentnummerTextBox.Text = customer.Studentnumber;
@@ -80,11 +69,12 @@ namespace ch.hsr.wpf.gadgeothek.ui
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Customer temp = ((CustomerViewModel) CustomerGrid.SelectedItem).Customer;
-            Customer customer = CustomerViewModels.First(c => (c.Customer).Studentnumber == temp.Studentnumber).Customer;
+            Customer temp = (Customer) CustomerGrid.SelectedItem;
+            var collection = CustomerViewModel.Collection;
+            Customer customer = collection.First(c => c.Studentnumber == temp.Studentnumber);
             customer.Name = NameTextBox.Text;
             customer.Email = EmailTextBox.Text;
-            service.UpdateCustomer(customer);
+            CustomerViewModel.Update(customer);
             SetFormEditebility(false);
             _editButton.Editing = false;
             _editButton.UpdateEditButton();

@@ -17,20 +17,41 @@
         </Grid.ColumnDefinitions>
         <DockPanel Margin="5" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
             <TextBlock Style="{StaticResource TitleStyle}" DockPanel.Dock="Top">Gadgets</TextBlock>
-            <DataGrid></DataGrid>
+            <DataGrid IsReadOnly="True" Name="GadgetGrid" AutoGenerateColumns="False" SelectionChanged="GadgetGrid_OnSelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Hersteller" Binding="{Binding Manufacturer}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Preis" Binding="{Binding Price}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Zustand" Binding="{Binding Condition}"></DataGridTextColumn>
+            </DataGrid.Columns>
+            </DataGrid>
         </DockPanel>
         <DockPanel Margin="5" Grid.Row="0" Grid.Column="1">
             <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Right">Ausleihe</TextBlock>
-            <GroupBox x:Name="groupBox" Header="LoanDetail" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+            <GroupBox x:Name="groupBox" Header="LoanDetail" VerticalAlignment="Top" DockPanel.Dock="Top" Height="89" Margin="0,0,-0.2,0">
+                <DataGrid Name="LoanGrid" IsReadOnly="True" AutoGenerateColumns="False" IsSelected="False" CanUserSortColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Customer" Binding="{Binding Customer.Name}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Pickup Date" Binding="{Binding PickupDate, StringFormat=dd.MM.yyyy}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Return Date" Binding="{Binding ReturnDate, StringFormat=dd.MM.yyyy}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
             <DockPanel DockPanel.Dock="Bottom">
-                <Button Content="Ausleihen" />
-                <Button Content="Reservieren" />
+                <Button Name="LoanButton" Content="Ausleihen" Click="LoanButton_OnClick"/>
+                <Button Name="ReserveButton" Content="Reservieren" Click="ReserveButton_OnClick"/>
             </DockPanel>
             <TextBlock></TextBlock>
         </DockPanel>
         <DockPanel Margin="5" Grid.Row="1" Grid.Column="1">
             <TextBlock DockPanel.Dock="Top" Style="{StaticResource TitleStyle}">Reservationen</TextBlock>
-            <DataGrid></DataGrid>
+            <DataGrid Name="ReservationGrid" IsReadOnly="True" AutoGenerateColumns="False" IsSelected="False" CanUserSortColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Customer" Binding="{Binding Customer.Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Reservation Date" Binding="{Binding ReservationDate, StringFormat=dd.MM.yyyy}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Position" Binding="{ Binding WaitingPosition}" SortDirection="Ascending"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </DockPanel>
     </Grid>
 </UserControl>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,41 +26,27 @@ namespace ch.hsr.wpf.gadgeothek.ui
     /// </summary>
     public partial class GadgetView : UserControl
     {
-        private LibraryAdminService service = App.Service;
-        private List<Gadget> gadgets;
         private readonly EditButton _editButton;
-        public ObservableCollection<GadgetViewModel> GadgetViewModels { get; set; }
+        public GadgetViewModel GadgetViewModel;
+        public ObservableCollection<Gadget> Gadgets { get; set; } 
         public GadgetView()
         {
             InitializeComponent();
-            gadgets = service.GetAllGadgets();
+            GadgetViewModel = new GadgetViewModel();
+            Gadgets = GadgetViewModel.Collection;
             DataContext = this;
-            GadgetGrid.IsReadOnly = true;
-            GadgetViewModels = new ObservableCollection<GadgetViewModel>();
             SetFormEditability(false);
             _editButton = new EditButton(EditButton);
-            LoadModel();
         }
-
-        public void LoadModel()
-        {
-            GadgetViewModels.Clear();
-            gadgets.ForEach(gadget =>
-            {
-                GadgetViewModels.Add(new GadgetViewModel() {Gadget = gadget});
-            });
-        }
-
         private void GadgetGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             object item = GadgetGrid.SelectedItem;
             if (item != null)
             {
-                Gadget gadget = ((GadgetViewModel) item).Gadget;
+                Gadget gadget = ((Gadget) item);
                 Manufacturer.Text = gadget.Manufacturer;
                 Product.Text = gadget.Name;
-                Price.Text = gadget.Price.ToString();
-                
+                Price.Text = gadget.Price.ToString(CultureInfo.InvariantCulture);
                 _editButton.EditBoxFilled = true;
                 _editButton.UpdateEditButton();
             }
@@ -82,15 +69,16 @@ namespace ch.hsr.wpf.gadgeothek.ui
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Gadget temp = ((GadgetViewModel) GadgetGrid.SelectedItem).Gadget;
+            var collection = GadgetViewModel.Collection;
+            Gadget temp = ((Gadget) GadgetGrid.SelectedItem);
             Gadget gadget = 
-                GadgetViewModels.First(g => (g.Gadget).InventoryNumber == temp.InventoryNumber).Gadget;
+                collection.First(g => g.InventoryNumber == temp.InventoryNumber);
             gadget.Manufacturer = Manufacturer.Text;
             gadget.Name = Product.Text;
             double newprice;
             double.TryParse(Price.Text, out newprice);
             gadget.Price = newprice;
-            service.UpdateGadget(gadget);
+            GadgetViewModel.Update(gadget);
             SetFormEditability(false);
             _editButton.Editing = false;
             _editButton.UpdateEditButton();

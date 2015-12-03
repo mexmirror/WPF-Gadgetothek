@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using Newtonsoft.Json.Converters;
 
 namespace ch.hsr.wpf.gadgeothek.domain
 {
-    public class Gadget
+    public class Gadget: INotifyPropertyChanged
     {
 
         public string InventoryNumber { get; set; }
@@ -31,6 +32,8 @@ namespace ch.hsr.wpf.gadgeothek.domain
             InventoryNumber = nr.ToString();
             Condition = Condition.New;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public override int GetHashCode()
         {

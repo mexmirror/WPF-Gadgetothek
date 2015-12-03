@@ -41,8 +41,16 @@ namespace ch.hsr.wpf.gadgeothek.ui
         }
         private void LoanButton_OnClick(object sender, RoutedEventArgs e)
         {
-            LoanWindow window = new LoanWindow();
-            window.ShowDialog();
+            Gadget item = SelectedGadget();
+            if (item != null)
+            {
+                LoanWindow window = new LoanWindow(item);
+                window.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Choose a Gadget to loan");
+            }
 
 
         }

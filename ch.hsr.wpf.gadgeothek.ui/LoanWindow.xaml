@@ -1,11 +1,11 @@
-﻿<Window x:Class="ch.hsr.wpf.gadgeothek.ui.ReservationWindow"
+﻿<Window x:Class="ch.hsr.wpf.gadgeothek.ui.LoanWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ch.hsr.wpf.gadgeothek.ui"
         mc:Ignorable="d"
-        Title="ReservationWindow" Height="500" Width="600">
+        Title="LoanWindow" Height="500" Width="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -63,7 +63,7 @@
             </Grid>
         </GroupBox>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,0.6,-0.4,0.4">
-            <Button x:Name="AddButton" VerticalAlignment="Center" Content="Add Reservation" Click="AddButton_OnClick" Margin="225,2,223.6,2" Width="Auto"/>
+            <Button x:Name="AddButton" VerticalAlignment="Center" Content="Add Loan" Click="AddButton_OnClick" Margin="225,2,223.6,2" Width="Auto"/>
         </StackPanel>
     </Grid>
 </Window>

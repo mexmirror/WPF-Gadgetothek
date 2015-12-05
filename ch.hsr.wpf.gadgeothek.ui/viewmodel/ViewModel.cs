@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ch.hsr.wpf.gadgeothek.service;
+using ch.hsr.wpf.gadgeothek.websocket;
 
 namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
 {
     public abstract class ViewModel<T>
     {
         public ObservableCollection<T> Collection { get; set; }
-        private readonly LibraryAdminService _adminService = App.Service;
         public ViewModel()
         {
             Collection = new ObservableCollection<T>();
@@ -20,6 +20,7 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
         protected abstract void LoadCollection();
 
         public abstract bool Update(T element);
+        public abstract void OnNotificateionRecieve(object sender, WebSocketClientNotificationEventArgs e);
 
         public virtual bool Add(T element)
         {

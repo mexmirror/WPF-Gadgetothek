@@ -25,10 +25,10 @@ namespace ch.hsr.wpf.gadgeothek.ui
     /// </summary>
     public partial class LoanView : UserControl
     {
-        private LibraryAdminService service = App.Service;
         public LoanViewModel LoanViewModel;
         public GadgetViewModel GadgetViewModel;
         public ReservationViewModel ReservationViewModel;
+        public List<Reservation> Reservations { get; set; }
         public LoanView()
         {
             InitializeComponent();
@@ -37,6 +37,7 @@ namespace ch.hsr.wpf.gadgeothek.ui
             LoanViewModel = new LoanViewModel();
             ReservationViewModel = new ReservationViewModel();
             GadgetGrid.ItemsSource = GadgetViewModel.Collection;
+            ReservationGrid.ItemsSource = Reservations;
 
         }
         private void LoanButton_OnClick(object sender, RoutedEventArgs e)
@@ -51,8 +52,6 @@ namespace ch.hsr.wpf.gadgeothek.ui
             {
                 MessageBox.Show("Choose a Gadget to loan");
             }
-
-
         }
 
         private void ReserveButton_OnClick(object sender, RoutedEventArgs e)
@@ -72,11 +71,7 @@ namespace ch.hsr.wpf.gadgeothek.ui
         private Gadget SelectedGadget()
         {
             var item = GadgetGrid.SelectedItem;
-            if (item != null)
-            {
-                return ((Gadget) item);
-            }
-            return null;
+            return (Gadget) item;
         }
 
         private void GadgetGrid_OnSelectionChanged(object sender, RoutedEventArgs e)
@@ -85,15 +80,70 @@ namespace ch.hsr.wpf.gadgeothek.ui
             if (item != null)
             {
                 Gadget g = SelectedGadget();
-                List<Reservation> reservations = ReservationViewModel.Find(r => r.Gadget.Equals(g));
-                List<Loan> loans = LoanViewModel.Find(l => l.Gadget.Equals(g));
-                //TODO: Bind in xaml
-                LoanGrid.ItemsSource = loans;
-                ReservationGrid.ItemsSource = reservations;
+                Reservations = ReservationViewModel.Find(r => r.Gadget.Equals(g));
+                Loan loan = LoanViewModel.FindFirstLoan(l => l.Gadget.Equals(g));
+                //TODO: Bind in xaml & better sort
+                if (loan != null)
+                {
+                    NameTextBlock.Text = loan.Customer.Name;
+                    //"dd.MM.yyyy"
+                    PickupTextBlock.Text = loan.PickupDate.ToString();
+                    ReturnTextBlock.Text = loan.ReturnDate.ToString();
+                }
+                else
+                {
+                    NameTextBlock.Text = "";
+                    PickupTextBlock.Text = "";
+                    ReturnTextBlock.Text = "";
+                }
+                
+            }
+        }
+
+        private void AddGadgetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            NewGadgetWindow window = new NewGadgetWindow();
+            window.ShowDialog();
+        }
+
+        private void RemoveGadgetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Gadget gadget = SelectedGadget();
+            var success = GadgetViewModel.Delete(gadget);
+            if (!success)
+            {
+                MessageBox.Show("Gadget could not be removed");
+            }
+        }
+
+        private void ReturnGadgetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Gadget gadget = SelectedGadget();
+            Loan loan = LoanViewModel.FindFirstLoan(l => l.Gadget.Equals(gadget));
+            loan.ReturnDate = DateTime.Now;
+            var success = LoanViewModel.Update(loan);
+            if (success)
+            {
+                MessageBox.Show("Loan returned");
             }
             else
             {
-                Console.WriteLine(@"Selected item = null");   
+                MessageBox.Show("Loan cannot be returned");
+            }
+
+        }
+
+        private void RemoveReservationButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Reservation reservation = (Reservation)ReservationGrid.SelectedItem;
+            if (reservation != null)
+            {
+                var success = ReservationViewModel.Delete(reservation);
+                if (!success) MessageBox.Show("Reservation cannot be removed");
+            }
+            else
+            {
+                MessageBox.Show("Please select a reservation to remove");
             }
         }
     }

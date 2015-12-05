@@ -7,21 +7,25 @@ using System.Threading.Tasks;
 using System.Windows.Documents;
 using ch.hsr.wpf.gadgeothek.domain;
 using ch.hsr.wpf.gadgeothek.service;
+using ch.hsr.wpf.gadgeothek.websocket;
 
 namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
 {
     public class LoanViewModel: ViewModel<Loan>
     {
         private readonly LibraryAdminService _adminService = App.Service;
+        private readonly WebSocketClient _webSocketClient = App.WebSocketClient;
 
         public LoanViewModel()
         {
             Collection = new ObservableCollection<Loan>();
+            _webSocketClient.NotificationReceived += OnNotificateionRecieve;
             LoadCollection();
         }
 
         protected override sealed void LoadCollection()
         {
+            Collection.Clear();
             _adminService.GetAllLoans().ForEach(l => Collection.Add(l));
         }
 
@@ -33,6 +37,19 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
                 LoadCollection();
             }
             return success;
+        }
+
+        public override void OnNotificateionRecieve(object sender, WebSocketClientNotificationEventArgs e)
+        {
+            if (e.Notification.Target == typeof (Loan).Name.ToLower())
+            {
+                Loan loan = e.Notification.DataAs<Loan>();
+                var temp = Collection.FirstOrDefault(l => l.Id == loan.Id);
+                if (temp != null)
+                {
+                    LoadCollection();
+                }
+            }
         }
 
         public override bool Delete(Loan element)

@@ -6,21 +6,25 @@ using System.Text;
 using System.Threading.Tasks;
 using ch.hsr.wpf.gadgeothek.domain;
 using ch.hsr.wpf.gadgeothek.service;
+using ch.hsr.wpf.gadgeothek.websocket;
 
 namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
 {
     public class ReservationViewModel : ViewModel<Reservation>
     {
         private readonly LibraryAdminService _adminService = App.Service;
+        private readonly WebSocketClient _webSocketClient = App.WebSocketClient;
 
         public ReservationViewModel()
         {
             Collection = new ObservableCollection<Reservation>();
+            _webSocketClient.NotificationReceived += OnNotificateionRecieve;
             LoadCollection();
         }
 
         protected override sealed void LoadCollection()
         {
+            Collection.Clear();
             _adminService.GetAllReservations().ForEach((r) => Collection.Add(r));
         }
 
@@ -54,9 +58,17 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
             return success;
         }
 
-        public void Notify()
+        public override void OnNotificateionRecieve(object sender, WebSocketClientNotificationEventArgs e)
         {
-            LoadCollection();
+            if (e.Notification.Target == typeof (Reservation).Name.ToLower())
+            {
+                Reservation reservation = e.Notification.DataAs<Reservation>();
+                var temp = Collection.FirstOrDefault(r => r.Id.Equals(reservation.Id));
+                if (temp != null)
+                {
+                    LoadCollection();
+                }
+            }
         }
     }
 }

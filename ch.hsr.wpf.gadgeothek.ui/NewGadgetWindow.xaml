@@ -4,9 +4,48 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ch.hsr.wpf.gadgeothek.ui"
+        xmlns:domain="clr-namespace:ch.hsr.wpf.gadgeothek.domain;assembly=ch.hsr.wpf.gadgeothek"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="NewGadgetWindow" Height="300" Width="300">
+        Title="Add new Gadget" Height="275" Width="500">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="ConditionData" 
+                            MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="domain:Condition"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80*"></RowDefinition>
+            <RowDefinition Height="170*"></RowDefinition>
+            <RowDefinition Height="45*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Add Gadget" Style="{StaticResource WindowTitleStyle}"  DockPanel.Dock="Top" Grid.Row="0" Grid.RowSpan="2"></TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Name" Style="{StaticResource LeftPreviewBlock}" Grid.Row="0" Grid.Column="0"/>
+            <TextBlock Text="Manufacturer" Style="{StaticResource LeftPreviewBlock}" Grid.Row="1" Grid.Column="0"/>
+            <TextBlock Text="Price" Style="{StaticResource LeftPreviewBlock}" Grid.Row="2" Grid.Column="0"/>
+            <TextBlock Text="Condition" Style="{StaticResource LeftPreviewBlock}" Grid.Row="3" Grid.Column="0"/>
+            <TextBox Name="NameBox" Grid.Column="1" Grid.Row="0" Style="{StaticResource RightTextForm}" Width="230"/>
+            <TextBox Name="ManufacturerBox" Grid.Column="1" Grid.Row="1" Style="{StaticResource RightTextForm}" Width="230"/>
+            <TextBox Name="PriceBox" Grid.Column="1" Grid.Row="2" Style="{StaticResource RightTextForm}" Width="230"/>
+            <ComboBox ItemsSource="{Binding Source={StaticResource ConditionData}}" Name="ConditionComboBox" Margin="5" Height="20" Width="230" Grid.Row="3" Grid.Column="1"></ComboBox>
+        </Grid>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" DockPanel.Dock="Bottom" Grid.Row="2">
+            <Button Name="AddGadgetButton" Content="Add Gadget" Click="AddGadgetButton_OnClick"></Button>
+        </StackPanel>
     </Grid>
 </Window>

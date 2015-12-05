@@ -12,7 +12,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <DockPanel Grid.Column="0" Margin="5">
-            <TextBlock Style="{StaticResource TitleStyle}" DockPanel.Dock="Top">Kunden</TextBlock>
+            <TextBlock Style="{StaticResource SectionTitleStyle}" DockPanel.Dock="Top">Kunden</TextBlock>
             <DataGrid IsReadOnly="True" Name="CustomerGrid" AutoGenerateColumns="False" SelectionChanged="CustomerGrid_OnSelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
@@ -22,7 +22,7 @@
             </DataGrid>
         </DockPanel>
         <StackPanel Grid.Column="1" Margin="5">
-            <TextBlock Style="{StaticResource TitleStyle}" DockPanel.Dock="Top">Details</TextBlock>
+            <TextBlock Style="{StaticResource SectionTitleStyle}" DockPanel.Dock="Top">Details</TextBlock>
             <GroupBox x:Name="GroupBox" Header="CustomerName" VerticalAlignment="Top">
                 <Grid>
                     <Grid.ColumnDefinitions>

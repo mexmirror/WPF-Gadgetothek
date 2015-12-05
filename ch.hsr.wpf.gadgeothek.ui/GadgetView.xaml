@@ -12,7 +12,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <DockPanel Grid.Column="0" Margin="5">
-            <TextBlock Style="{StaticResource TitleStyle}" DockPanel.Dock="Top">Gadgets</TextBlock>
+            <TextBlock Style="{StaticResource SectionTitleStyle}" DockPanel.Dock="Top">Gadgets</TextBlock>
             <Button DockPanel.Dock="Bottom" Content="Hinzufügen" Margin="0 5 0 0"></Button>
             <DataGrid IsReadOnly="True" ItemsSource="{ Binding Gadgets}" Name="GadgetGrid" AutoGenerateColumns="False" SelectionChanged="GadgetGrid_OnSelectionChanged">
                 <DataGrid.Columns>
@@ -24,7 +24,7 @@
             </DataGrid>
         </DockPanel>
         <StackPanel Grid.Column="1" Margin="5">
-            <TextBlock Style="{StaticResource TitleStyle}">Details</TextBlock>
+            <TextBlock Style="{StaticResource SectionTitleStyle}">Details</TextBlock>
             <GroupBox x:Name="GroupBox" Header="GadgetName" VerticalAlignment="Top">
                 <Grid>
                     <Grid.ColumnDefinitions>

@@ -8,43 +8,54 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="75*"></RowDefinition>
+            <RowDefinition Height="75*"></RowDefinition>
+            <RowDefinition Height="15*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <DockPanel Margin="5" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
-            <TextBlock Style="{StaticResource TitleStyle}" DockPanel.Dock="Top">Gadgets</TextBlock>
+        <DockPanel Margin="5,5,4.4,0.6" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+            <TextBlock Style="{StaticResource SectionTitleStyle}" DockPanel.Dock="Top">Gadgets</TextBlock>
             <DataGrid IsReadOnly="True" Name="GadgetGrid" AutoGenerateColumns="False" SelectionChanged="GadgetGrid_OnSelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Hersteller" Binding="{Binding Manufacturer}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Preis" Binding="{Binding Price}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Zustand" Binding="{Binding Condition}"></DataGridTextColumn>
-            </DataGrid.Columns>
+                </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
-        <DockPanel Margin="5" Grid.Row="0" Grid.Column="1">
+        <DockPanel Margin="5.6,5,5,5.6" Grid.Row="0" Grid.Column="1">
             <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Right">Ausleihe</TextBlock>
-            <GroupBox x:Name="groupBox" Header="LoanDetail" VerticalAlignment="Top" DockPanel.Dock="Top" Height="89" Margin="0,0,-0.2,0">
-                <DataGrid Name="LoanGrid" IsReadOnly="True" AutoGenerateColumns="False" IsSelected="False" CanUserSortColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Customer" Binding="{Binding Customer.Name}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Pickup Date" Binding="{Binding PickupDate, StringFormat=dd.MM.yyyy}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Return Date" Binding="{Binding ReturnDate, StringFormat=dd.MM.yyyy}"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+            <GroupBox x:Name="LoanDetailBox" Header="LoanDetail" VerticalAlignment="Top" DockPanel.Dock="Top" Height="89" Margin="0,0,-0.2,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Name" Grid.Column="0" Grid.Row="0" Style="{StaticResource LeftPreviewBlock}"></TextBlock>
+                    <TextBlock Text="Pickup Date" Grid.Column="0" Grid.Row="1" Style="{StaticResource LeftPreviewBlock}"></TextBlock>
+                    <TextBlock Text="Return Date" Grid.Column="0" Grid.Row="2" Style="{StaticResource LeftPreviewBlock}"></TextBlock>
+                    <TextBlock Name="NameTextBlock" Text="{Binding Customer.Name}" Grid.Column="1" Grid.Row="0" Style="{StaticResource RightPreviewBlock}"></TextBlock>
+                    <TextBlock Name="ReturnTextBlock" Text="{Binding ReturnDate}" Grid.Column="1" Grid.Row="1" Style="{StaticResource RightPreviewBlock}"></TextBlock>
+                    <TextBlock Name="PickupTextBlock" Text="{ Binding PickupDate}" Grid.Column="1" Grid.Row="2" Style="{StaticResource RightPreviewBlock}"></TextBlock>
+                </Grid>
             </GroupBox>
-            <DockPanel DockPanel.Dock="Bottom">
-                <Button Name="LoanButton" Content="Ausleihen" Click="LoanButton_OnClick"/>
-                <Button Name="ReserveButton" Content="Reservieren" Click="ReserveButton_OnClick"/>
-            </DockPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+                <Button Name="LoanButton" Content="Ausleihen" Click="LoanButton_OnClick" Margin="5"/>
+                <Button Name="ReserveButton" Content="Reservieren" Click="ReserveButton_OnClick" Margin="5"/>
+            </StackPanel>
             <TextBlock></TextBlock>
         </DockPanel>
-        <DockPanel Margin="5" Grid.Row="1" Grid.Column="1">
-            <TextBlock DockPanel.Dock="Top" Style="{StaticResource TitleStyle}">Reservationen</TextBlock>
+        <DockPanel Margin="5.6,4.4,5,0.6" Grid.Row="1" Grid.Column="1">
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource SectionTitleStyle}">Reservationen</TextBlock>
             <DataGrid Name="ReservationGrid" IsReadOnly="True" AutoGenerateColumns="False" IsSelected="False" CanUserSortColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Customer" Binding="{Binding Customer.Name}"></DataGridTextColumn>
@@ -53,5 +64,13 @@
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center">
+            <Button Name="AddGadgetButton" Content="Add Gadget" Margin="5" Width="125" Click="AddGadgetButton_OnClick"></Button>
+            <Button Name="RemoveGadgetButton" Content="Remove Gadget" Margin="5" Width="125" Click="RemoveGadgetButton_OnClick"></Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center">
+            <Button Name="ReturnGadgetButton" Content="Return Gadget" Margin="5" Width="125" Click="ReturnGadgetButton_OnClick"></Button>
+            <Button Name="RemoveReservationButton" Content="Delete Reservation" Margin="5" Width="125" Click="RemoveReservationButton_OnClick"></Button>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -25,9 +25,6 @@
                 </MenuItem>
             </Menu>
             <TabControl>
-                <TabItem Header="Gadget">
-                    <local:GadgetView Loaded="Gadget_Loaded"/>
-                </TabItem>
                 <TabItem Header="Ausleihe">
                     <local:LoanView/>
                 </TabItem>

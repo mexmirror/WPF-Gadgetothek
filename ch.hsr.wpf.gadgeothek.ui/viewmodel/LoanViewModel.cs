@@ -71,6 +71,11 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
             }
             return success;
         }
+
+        public Loan FindFirstLoan(Predicate<Loan> predicate)
+        {
+            return Collection.FirstOrDefault(l => predicate(l));
+        }
         public void Notify()
         {
             LoadCollection();

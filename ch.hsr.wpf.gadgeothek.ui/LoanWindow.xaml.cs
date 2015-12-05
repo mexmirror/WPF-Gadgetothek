@@ -58,6 +58,7 @@ namespace ch.hsr.wpf.gadgeothek.ui
         }
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
+            //Check if gadget is already lent
             Customer c = SelectedCustomer();
             if (c != null)
             {

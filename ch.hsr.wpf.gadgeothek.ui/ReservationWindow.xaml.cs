@@ -56,6 +56,12 @@ namespace ch.hsr.wpf.gadgeothek.ui
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
             Customer c = SelectedCustomer();
+            List<Reservation> reservations = ReservationViewModel.Find(r => r.Customer.Equals(c));
+            if (reservations.Count >= 3)
+            {
+                MessageBox.Show(c.Name + " has already reserved 3 gadgets");
+                return;
+            }
             if (c != null)
             {
                 bool success = ReservationViewModel.Add(new Reservation

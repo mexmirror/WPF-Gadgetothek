@@ -41,6 +41,11 @@ namespace ch.hsr.wpf.gadgeothek.ui
         }
         private void LoanButton_OnClick(object sender, RoutedEventArgs e)
         {
+            if (ReservationViewModel.CurrentReservations.Count >= 3)
+            {
+                MessageBox.Show("Not more than 3 reservations per gadget possible");
+                return;
+            }
             Gadget item = SelectedGadget();
             if (item != null)
             {

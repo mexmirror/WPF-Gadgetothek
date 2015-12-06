@@ -27,8 +27,7 @@ namespace ch.hsr.wpf.gadgeothek.ui
     {
         public LoanViewModel LoanViewModel;
         public GadgetViewModel GadgetViewModel;
-        public ReservationViewModel ReservationViewModel;
-        public List<Reservation> Reservations { get; set; }
+        public ReservationViewModel ReservationViewModel { get; set; }
         public LoanView()
         {
             InitializeComponent();
@@ -37,7 +36,7 @@ namespace ch.hsr.wpf.gadgeothek.ui
             LoanViewModel = new LoanViewModel();
             ReservationViewModel = new ReservationViewModel();
             GadgetGrid.ItemsSource = GadgetViewModel.Collection;
-            ReservationGrid.ItemsSource = Reservations;
+            ReservationGrid.ItemsSource = ReservationViewModel.CurrentReservations;
 
         }
         private void LoanButton_OnClick(object sender, RoutedEventArgs e)
@@ -80,7 +79,8 @@ namespace ch.hsr.wpf.gadgeothek.ui
             if (item != null)
             {
                 Gadget g = SelectedGadget();
-                Reservations = ReservationViewModel.Find(r => r.Gadget.Equals(g));
+                var reservations = ReservationViewModel.Find(r => r.Gadget.Equals(g));
+                ReservationViewModel.UpdateCurrentReservations(reservations);
                 Loan loan = LoanViewModel.FindFirstLoan(l => l.Gadget.Equals(g));
                 //TODO: Bind in xaml & better sort
                 if (loan != null)
@@ -96,7 +96,6 @@ namespace ch.hsr.wpf.gadgeothek.ui
                     PickupTextBlock.Text = "";
                     ReturnTextBlock.Text = "";
                 }
-                
             }
         }
 

@@ -14,10 +14,11 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
     {
         private readonly LibraryAdminService _adminService = App.Service;
         private readonly WebSocketClient _webSocketClient = App.WebSocketClient;
-
+        public ObservableCollection<Reservation> CurrentReservations { get; set; } 
         public ReservationViewModel()
         {
             Collection = new ObservableCollection<Reservation>();
+            CurrentReservations = new ObservableCollection<Reservation>();
             _webSocketClient.NotificationReceived += OnNotificateionRecieve;
             LoadCollection();
         }
@@ -28,6 +29,11 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
             _adminService.GetAllReservations().ForEach((r) => Collection.Add(r));
         }
 
+        public void UpdateCurrentReservations(List<Reservation> reservations)
+        {
+            CurrentReservations.Clear();
+            reservations.ForEach(r => CurrentReservations.Add(r));
+        }
         public override bool Update(Reservation element)
         {
             var success = _adminService.UpdateReservation(element);

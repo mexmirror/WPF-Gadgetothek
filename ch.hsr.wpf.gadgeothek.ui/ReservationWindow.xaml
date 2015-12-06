@@ -13,9 +13,9 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="80*"></RowDefinition>
-            <RowDefinition Height="215*"></RowDefinition>
-            <RowDefinition Height="215*"></RowDefinition>
-            <RowDefinition Height="36*"></RowDefinition>
+            <RowDefinition Height="200*"></RowDefinition>
+            <RowDefinition Height="200*"></RowDefinition>
+            <RowDefinition Height="40*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Add Reservation" Style="{StaticResource WindowTitleStyle}" Margin="0 20 0 0"/>
         <DataGrid IsReadOnly="True" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Name="CustomerGrid" AutoGenerateColumns="False" SelectionChanged="CustomerGrid_OnSelectionChanged" Grid.ColumnSpan="2" Margin="0,0,296.6,1.4">

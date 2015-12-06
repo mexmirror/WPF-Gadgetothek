@@ -62,7 +62,7 @@
                 <TextBlock Name="PriceBlock" Grid.Column="1" Grid.Row="2" Style="{StaticResource RightPreviewBlock}"></TextBlock>
             </Grid>
         </GroupBox>
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0,0.6,-0.4,0.4">
+        <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="0,0.6,-0.4,0.4">
             <Button x:Name="AddButton" VerticalAlignment="Center" Content="Add Reservation" Click="AddButton_OnClick" Width="125"/>
         </StackPanel>
     </Grid>

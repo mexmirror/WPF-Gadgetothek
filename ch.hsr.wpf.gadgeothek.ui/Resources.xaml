@@ -46,6 +46,22 @@
     </Style>
     <Style TargetType="{x:Type DataGrid}">
         <Setter Property="VerticalGridLinesBrush" Value="White"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="White"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="AlternatingRowBackground" Value="#DCDEE0"/>
+    </Style>
+    <Style TargetType="{x:Type DataGridCell}">
+        <Style.Triggers>
+            <Trigger Property="DataGridCell.IsSelected" Value="True">
+                <Setter Property="Background" Value="#2E488F" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Background" Value="#5A92ED"/>
+        <Setter Property="Foreground" Value="AliceBlue"/>
+        <Setter Property="Height" Value="20"/>
     </Style>
 
 </ResourceDictionary>

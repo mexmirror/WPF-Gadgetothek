@@ -47,7 +47,7 @@ namespace ch.hsr.wpf.gadgeothek.ui
                 Customer customer = (Customer) item;
                 NameTextBox.Text = customer.Name;
                 EmailTextBox.Text = customer.Email;
-                StudentnummerTextBox.Text = customer.Studentnumber;
+                StudentIdTextBox.Text = customer.Studentnumber;
                 _editButton.EditBoxFilled = true;
                 _editButton.UpdateEditButton();
             }

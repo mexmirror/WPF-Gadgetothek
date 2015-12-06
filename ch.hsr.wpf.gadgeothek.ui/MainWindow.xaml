@@ -25,10 +25,10 @@
                 </MenuItem>
             </Menu>
             <TabControl>
-                <TabItem Header="Ausleihe">
+                <TabItem Header="Administraton">
                     <local:LoanView/>
                 </TabItem>
-                <TabItem Header="Kunde">
+                <TabItem Header="Customer">
                     <local:CustomerView/>
                 </TabItem>
             </TabControl>

@@ -21,9 +21,9 @@
             <DataGrid IsReadOnly="True" Name="GadgetGrid" AutoGenerateColumns="False" SelectionChanged="GadgetGrid_OnSelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="0.25*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Hersteller" Binding="{Binding Manufacturer}" Width="0.25*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Preis" Binding="{Binding Price}" Width="0.25*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Zustand" Binding="{Binding Condition}" Width="0.25*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" Width="0.25*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="0.25*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Condition" Binding="{Binding Condition}" Width="0.25*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>

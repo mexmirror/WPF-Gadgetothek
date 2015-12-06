@@ -37,7 +37,7 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Name" Style="{StaticResource LeftPreviewBlock}" Grid.Row="0" Grid.Column="0"/>
             <TextBlock Text="E-Mail" Style="{StaticResource LeftPreviewBlock}" Grid.Row="1" Grid.Column="0"/>
-            <TextBlock Text="Studentnumber" Style="{StaticResource LeftPreviewBlock}" Grid.Row="2" Grid.Column="0"/>
+            <TextBlock Text="Student ID" Style="{StaticResource LeftPreviewBlock}" Grid.Row="2" Grid.Column="0"/>
             <TextBlock Text="Password" Style="{StaticResource LeftPreviewBlock}" Grid.Row="3" Grid.Column="0"/>
             <TextBox Name="NameBox" Grid.Column="1" Grid.Row="0" Style="{StaticResource RightTextForm}" Width="230"/>
             <TextBox Name="MailBox" Grid.Column="1" Grid.Row="1" Style="{StaticResource RightTextForm}" Width="230"/>

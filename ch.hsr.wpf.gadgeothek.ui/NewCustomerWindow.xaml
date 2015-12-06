@@ -1,0 +1,51 @@
+﻿<Window x:Class="ch.hsr.wpf.gadgeothek.ui.NewCustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ch.hsr.wpf.gadgeothek.ui"
+        xmlns:domain="clr-namespace:ch.hsr.wpf.gadgeothek.domain;assembly=ch.hsr.wpf.gadgeothek"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="Add new customer" Height="275" Width="500">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="ConditionData" 
+                            MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="domain:Condition"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80*"></RowDefinition>
+            <RowDefinition Height="170*"></RowDefinition>
+            <RowDefinition Height="45*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="New Customer" Style="{StaticResource WindowTitleStyle}"  DockPanel.Dock="Top" Grid.Row="0" Grid.RowSpan="2"></TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Name" Style="{StaticResource LeftPreviewBlock}" Grid.Row="0" Grid.Column="0"/>
+            <TextBlock Text="E-Mail" Style="{StaticResource LeftPreviewBlock}" Grid.Row="1" Grid.Column="0"/>
+            <TextBlock Text="Studentnumber" Style="{StaticResource LeftPreviewBlock}" Grid.Row="2" Grid.Column="0"/>
+            <TextBlock Text="Password" Style="{StaticResource LeftPreviewBlock}" Grid.Row="3" Grid.Column="0"/>
+            <TextBox Name="NameBox" Grid.Column="1" Grid.Row="0" Style="{StaticResource RightTextForm}" Width="230"/>
+            <TextBox Name="MailBox" Grid.Column="1" Grid.Row="1" Style="{StaticResource RightTextForm}" Width="230"/>
+            <TextBox Name="NumberBox" Grid.Column="1" Grid.Row="2" Style="{StaticResource RightTextForm}" Width="230"/>
+            <PasswordBox Name="PasswordBox" Grid.Column="1" Grid.Row="3" Style="{StaticResource RightTextForm}" Width="230"></PasswordBox>
+        </Grid>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" DockPanel.Dock="Bottom" Grid.Row="2">
+            <Button Name="AddCustomerButton" Content="Add Customer" Click="AddCustomerButton_OnClick"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

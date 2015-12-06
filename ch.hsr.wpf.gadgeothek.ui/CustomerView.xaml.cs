@@ -79,5 +79,21 @@ namespace ch.hsr.wpf.gadgeothek.ui
             _editButton.Editing = false;
             _editButton.UpdateEditButton();
         }
+
+        private void AddCustomerButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            NewCustomerWindow window = new NewCustomerWindow();
+            window.ShowDialog();
+        }
+
+        private void RemoveCustomerButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Customer customer = (Customer) CustomerGrid.SelectedItem;
+            var success = CustomerViewModel.Delete(customer);
+            if (!success)
+            {
+                MessageBox.Show("Customer cannot be deleted");
+            }
+        }
     }
 }

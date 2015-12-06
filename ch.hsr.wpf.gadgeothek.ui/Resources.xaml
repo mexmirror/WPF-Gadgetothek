@@ -44,8 +44,8 @@
         <Setter Property="Button.Width" Value="100" />
         <Setter Property="Button.Height" Value="30" />
     </Style>
-    <Style TargetType="{x:Type DataGridRowHeader}">
-        <Setter Property="Background" Value="AliceBlue"/>
+    <Style TargetType="{x:Type DataGrid}">
+        <Setter Property="VerticalGridLinesBrush" Value="White"/>
     </Style>
 
 </ResourceDictionary>

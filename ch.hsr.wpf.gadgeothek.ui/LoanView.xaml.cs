@@ -29,8 +29,9 @@ namespace ch.hsr.wpf.gadgeothek.ui
         public LoanViewModel LoanViewModel { get; }
         public GadgetViewModel GadgetViewModel { get; }
         public ReservationViewModel ReservationViewModel { get; }
-        public FilterService<Reservation> ReservationFilterService { get; } 
+        public FilterService<Reservation> ReservationFilterService { get; }
         public Loan CurrentLoan { get; set; }
+
         public LoanView()
         {
             InitializeComponent();
@@ -40,6 +41,7 @@ namespace ch.hsr.wpf.gadgeothek.ui
             ReservationViewModel = new ReservationViewModel();
             ReservationFilterService = new FilterService<Reservation>(ReservationViewModel.Collection);
         }
+
         private void LoanButton_OnClick(object sender, RoutedEventArgs e)
         {
             Gadget item = SelectedGadget();
@@ -80,25 +82,22 @@ namespace ch.hsr.wpf.gadgeothek.ui
             if (item != null)
             {
                 Gadget g = SelectedGadget();
-                //var reservations = ReservationViewModel.Find(r => r.Gadget.Equals(g));
-                //ReservationViewModel.UpdateCurrentReservations(reservations);
                 ReservationFilterService.SetFilter(r => r.Gadget.Equals(g));
                 ReservationFilterService.FilterCollection();
                 Loan loan = LoanViewModel.FindFirstLoan(l => l.Gadget.Equals(g));
                 //TODO: Bind in xaml & better sort
                 if (loan != null)
                 {
-                    //NameTextBlock.Text = loan.Customer.Name;
-                    ////"dd.MM.yyyy"
-                    //PickupTextBlock.Text = loan.PickupDate.ToString();
-                    //ReturnTextBlock.Text = loan.ReturnDate.ToString();
+                    NameTextBlock.Text = loan.Customer.Name;
+                    PickupTextBlock.Text = loan.PickupDate?.ToString("dd.MM.yyyy");
+                    ReturnTextBlock.Text = loan.ReturnDate?.ToString("dd.MM.yyyy");
                     CurrentLoan = loan;
                 }
                 else
                 {
-                    //NameTextBlock.Text = "";
-                    //PickupTextBlock.Text = "";
-                    //ReturnTextBlock.Text = "";
+                    NameTextBlock.Text = "";
+                    PickupTextBlock.Text = "";
+                    ReturnTextBlock.Text = "";
                     CurrentLoan = null;
                 }
             }
@@ -126,20 +125,23 @@ namespace ch.hsr.wpf.gadgeothek.ui
             Loan loan = LoanViewModel.FindFirstLoan(l => l.Gadget.Equals(gadget));
             loan.ReturnDate = DateTime.Now;
             var success = LoanViewModel.Update(loan);
-            if (success)
+            if (success && !loan.WasReturned)
             {
                 MessageBox.Show("Loan returned");
+            }
+            else if (success && loan.WasReturned)
+            {
+                MessageBox.Show("Loan has already been returned");
             }
             else
             {
                 MessageBox.Show("Loan cannot be returned");
             }
-
         }
 
         private void RemoveReservationButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Reservation reservation = (Reservation)ReservationGrid.SelectedItem;
+            Reservation reservation = (Reservation) ReservationGrid.SelectedItem;
             if (reservation != null)
             {
                 var success = ReservationViewModel.Delete(reservation);

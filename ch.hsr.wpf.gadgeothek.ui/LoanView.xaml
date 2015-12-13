@@ -45,7 +45,7 @@
                     <TextBlock Text="Return Date" Grid.Column="0" Grid.Row="2" Style="{StaticResource LeftPreviewBlock}"></TextBlock>
                     <TextBlock Name="NameTextBlock" Text="{Binding CurrentLoan.Customer.Name}" Grid.Column="1" Grid.Row="0" Style="{StaticResource RightPreviewBlock}"></TextBlock>
                     <TextBlock Name="ReturnTextBlock" Text="{Binding CurrentLoan.ReturnDate}" Grid.Column="1" Grid.Row="1" Style="{StaticResource RightPreviewBlock}"></TextBlock>
-                    <TextBlock Name="PickupTextBlock" Text="{ Binding CurrentLoan.PickupDate}" Grid.Column="1" Grid.Row="2" Style="{StaticResource RightPreviewBlock}"></TextBlock>
+                    <TextBlock Name="PickupTextBlock" Text="{Binding CurrentLoan.PickupDate}" Grid.Column="1" Grid.Row="2" Style="{StaticResource RightPreviewBlock}"></TextBlock>
                 </Grid>
             </GroupBox>
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Center">

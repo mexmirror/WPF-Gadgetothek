@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using ch.hsr.wpf.gadgeothek.websocket;
 
 namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
 {
-    public abstract class ViewModel<T>
+    public abstract class ViewModel<T>: INotifyCollectionChanged
     {
         public ObservableCollection<T> Collection { get; set; }
         public ViewModel()
@@ -38,5 +39,6 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
             return Collection.Where((T t) => predicate(t)).ToList();
         }
 
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
     }
 }

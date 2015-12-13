@@ -40,11 +40,12 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
             if (e.Notification.Target == typeof (Gadget).Name.ToLower())
             {
                 Gadget gadget = e.Notification.DataAs<Gadget>();
-                var temp = Collection.FirstOrDefault(g => g.InventoryNumber == gadget.InventoryNumber);
+                /*var temp = Collection.FirstOrDefault(g => g.InventoryNumber == gadget.InventoryNumber);
                 if (temp != null)
                 {
                     LoadCollection();
-                }
+                }*/
+                LoadCollection();
             }
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ch.hsr.wpf.gadgeothek.domain;
 using ch.hsr.wpf.gadgeothek.service;
@@ -69,11 +70,8 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
             if (e.Notification.Target == typeof (Reservation).Name.ToLower())
             {
                 Reservation reservation = e.Notification.DataAs<Reservation>();
-                var temp = Collection.FirstOrDefault(r => r.Id.Equals(reservation.Id));
-                if (temp != null)
-                {
-                    LoadCollection();
-                }
+                LoadCollection();
+                CurrentReservations.Where(r => r.Id == reservation.Id).Select(r => r.Update(reservation));
             }
         }
     }

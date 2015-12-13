@@ -1,6 +1,8 @@
-﻿namespace ch.hsr.wpf.gadgeothek.domain
+﻿using System.ComponentModel;
+
+namespace ch.hsr.wpf.gadgeothek.domain
 {
-    public class Customer
+    public class Customer: INotifyPropertyChanged
     {
         public string Name { get; set; }
         public string Password { get; set; }
@@ -19,6 +21,8 @@
             Email = email;
             Studentnumber = studentNumber;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public override int GetHashCode()
         {

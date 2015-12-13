@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ch.hsr.wpf.gadgeothek.Annotations;
 
 namespace ch.hsr.wpf.gadgeothek.domain
 {
-    public class Loan
+    public class Loan: INotifyPropertyChanged
     {
 
         public string Id { get; set; }
@@ -50,5 +53,12 @@ namespace ch.hsr.wpf.gadgeothek.domain
             return $"Loan {Id}: {Gadget} from {PickupDate:yyyy-MM-dd} to {ReturnDate:yyyy-MM-dd}";
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

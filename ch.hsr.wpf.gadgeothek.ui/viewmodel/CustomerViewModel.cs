@@ -41,11 +41,12 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
             if (e.Notification.Target == typeof (Customer).Name.ToLower())
             {
                 Customer customer = e.Notification.DataAs<Customer>();
-                var temp = Collection.FirstOrDefault(c => c.Studentnumber == customer.Studentnumber);
+               /* var temp = Collection.FirstOrDefault(c => c.Studentnumber == customer.Studentnumber);
                 if (temp != null)
                 {
                     LoadCollection();
-                }
+                }*/
+                LoadCollection();
             }
         }
 

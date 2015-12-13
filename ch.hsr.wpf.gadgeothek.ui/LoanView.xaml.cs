@@ -25,9 +25,10 @@ namespace ch.hsr.wpf.gadgeothek.ui
     /// </summary>
     public partial class LoanView : UserControl
     {
-        public LoanViewModel LoanViewModel;
-        public GadgetViewModel GadgetViewModel;
-        public ReservationViewModel ReservationViewModel { get; set; }
+        public LoanViewModel LoanViewModel { get; }
+        public GadgetViewModel GadgetViewModel { get; }
+        public ReservationViewModel ReservationViewModel { get; }
+        public Loan CurrentLoan { get; set; }
         public LoanView()
         {
             InitializeComponent();
@@ -35,17 +36,9 @@ namespace ch.hsr.wpf.gadgeothek.ui
             GadgetViewModel = new GadgetViewModel();
             LoanViewModel = new LoanViewModel();
             ReservationViewModel = new ReservationViewModel();
-            GadgetGrid.ItemsSource = GadgetViewModel.Collection;
-            ReservationGrid.ItemsSource = ReservationViewModel.CurrentReservations;
-
         }
         private void LoanButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (ReservationViewModel.CurrentReservations.Count >= 3)
-            {
-                MessageBox.Show("Not more than 3 reservations per gadget possible");
-                return;
-            }
             Gadget item = SelectedGadget();
             if (item != null)
             {
@@ -90,16 +83,18 @@ namespace ch.hsr.wpf.gadgeothek.ui
                 //TODO: Bind in xaml & better sort
                 if (loan != null)
                 {
-                    NameTextBlock.Text = loan.Customer.Name;
-                    //"dd.MM.yyyy"
-                    PickupTextBlock.Text = loan.PickupDate.ToString();
-                    ReturnTextBlock.Text = loan.ReturnDate.ToString();
+                    //NameTextBlock.Text = loan.Customer.Name;
+                    ////"dd.MM.yyyy"
+                    //PickupTextBlock.Text = loan.PickupDate.ToString();
+                    //ReturnTextBlock.Text = loan.ReturnDate.ToString();
+                    CurrentLoan = loan;
                 }
                 else
                 {
-                    NameTextBlock.Text = "";
-                    PickupTextBlock.Text = "";
-                    ReturnTextBlock.Text = "";
+                    //NameTextBlock.Text = "";
+                    //PickupTextBlock.Text = "";
+                    //ReturnTextBlock.Text = "";
+                    CurrentLoan = null;
                 }
             }
         }

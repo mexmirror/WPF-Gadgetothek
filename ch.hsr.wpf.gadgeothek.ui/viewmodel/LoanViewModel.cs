@@ -44,7 +44,22 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
             if (e.Notification.Target == typeof (Loan).Name.ToLower())
             {
                 Loan loan = e.Notification.DataAs<Loan>();
-                LoadCollection();
+                switch (e.Notification.Type)
+                {
+                    case WebSocketClientNotificationTypeEnum.Add:
+                        Collection.Add(loan);
+                        break;
+                    case WebSocketClientNotificationTypeEnum.Update:
+                        var temp = Collection.First(l => l.Id == loan.Id);
+                        temp.Update(temp);
+                        break;
+                    case WebSocketClientNotificationTypeEnum.Delete:
+                        Collection.Remove(loan);
+                        break;
+                    default:
+                        LoadCollection();
+                        break;
+                }
             }
         }
 
@@ -71,10 +86,6 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
         public Loan FindFirstLoan(Predicate<Loan> predicate)
         {
             return Collection.FirstOrDefault(l => predicate(l));
-        }
-        public void Notify()
-        {
-            LoadCollection();
         }
     }
 }

@@ -12,8 +12,8 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
 {
     public class CustomerViewModel: ViewModel<Customer>
     {
-        private LibraryAdminService _adminService = App.Service;
-        private WebSocketClient _webSocketClient = App.WebSocketClient;
+        private readonly LibraryAdminService _adminService = App.Service;
+        private readonly WebSocketClient _webSocketClient = App.WebSocketClient;
         public CustomerViewModel()
         {
             Collection = new ObservableCollection<Customer>();
@@ -41,7 +41,22 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
             if (e.Notification.Target == typeof (Customer).Name.ToLower())
             {
                Customer customer = e.Notification.DataAs<Customer>();
-               LoadCollection();
+                switch (e.Notification.Type)
+                {
+                    case WebSocketClientNotificationTypeEnum.Add:
+                        Collection.Add(customer);
+                        break;
+                    case WebSocketClientNotificationTypeEnum.Update:
+                        var temp = Collection.First(c => c.Studentnumber == customer.Studentnumber);
+                        temp.Update(customer);
+                        break;
+                    case WebSocketClientNotificationTypeEnum.Delete:
+                        Collection.Remove(customer);
+                        break;
+                    default:
+                        LoadCollection();
+                        break;
+                }
             }
         }
 

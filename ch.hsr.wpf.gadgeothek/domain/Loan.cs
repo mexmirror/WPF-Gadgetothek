@@ -43,6 +43,18 @@ namespace ch.hsr.wpf.gadgeothek.domain
             ReturnDate = returnDate;
         }
 
+        public Loan Update(Loan newLoan)
+        {
+            Id = newLoan.Id;
+            CustomerId = newLoan.GadgetId;
+            Customer = newLoan.Customer;
+            GadgetId = newLoan.GadgetId;
+            Gadget = newLoan.Gadget;
+            PickupDate = newLoan.PickupDate;
+            ReturnDate = newLoan.ReturnDate;
+            return this;
+        }
+
         public bool IsLent => ReturnDate == null;
 
         public bool IsOverdue => IsLent && OverDueDate < DateTime.Now;

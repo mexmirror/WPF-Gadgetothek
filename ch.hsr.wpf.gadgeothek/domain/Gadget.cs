@@ -33,6 +33,17 @@ namespace ch.hsr.wpf.gadgeothek.domain
             Condition = Condition.New;
         }
 
+        public Gadget Update(Gadget newGadget)
+        {
+            InventoryNumber = newGadget.InventoryNumber;
+            Condition = newGadget.Condition;
+            Price = newGadget.Price;
+            Manufacturer = newGadget.Manufacturer;
+            Name = newGadget.Name;
+            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs());
+            return this;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public override int GetHashCode()

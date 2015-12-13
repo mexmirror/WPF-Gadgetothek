@@ -63,7 +63,22 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
             if (e.Notification.Target == typeof (Reservation).Name.ToLower())
             {
                 Reservation reservation = e.Notification.DataAs<Reservation>();
-                LoadCollection();
+                switch (e.Notification.Type)
+                {
+                    case WebSocketClientNotificationTypeEnum.Add:
+                        Collection.Add(reservation);
+                        break;
+                    case WebSocketClientNotificationTypeEnum.Update:
+                        var temp = Collection.First(r => r.Id == reservation.Id);
+                        temp.Update(reservation);
+                        break;
+                    case WebSocketClientNotificationTypeEnum.Delete:
+                        Collection.Remove(reservation);
+                        break;
+                    default:
+                        LoadCollection();
+                        break;
+                }
             }
         }
     }

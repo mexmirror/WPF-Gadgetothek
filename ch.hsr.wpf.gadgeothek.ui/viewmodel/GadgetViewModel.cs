@@ -40,7 +40,22 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
             if (e.Notification.Target == typeof (Gadget).Name.ToLower())
             {
                 Gadget gadget = e.Notification.DataAs<Gadget>();
-                LoadCollection();
+                switch (e.Notification.Type)
+                {
+                    case WebSocketClientNotificationTypeEnum.Add:
+                        Collection.Add(gadget);
+                        break;
+                    case WebSocketClientNotificationTypeEnum.Update:
+                        var temp = Collection.First(g => g.InventoryNumber == gadget.InventoryNumber);
+                        temp.Update(gadget);
+                        break;
+                    case WebSocketClientNotificationTypeEnum.Delete:
+                        Collection.Remove(gadget);
+                        break;
+                    default:
+                        LoadCollection();
+                        break;
+                }
             }
         }
 
@@ -62,10 +77,6 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
                 Collection.Add(gadget);
             }
             return success;
-        }
-        public void Notify()
-        {
-            LoadCollection();
         }
     }
 }

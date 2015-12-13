@@ -22,6 +22,14 @@ namespace ch.hsr.wpf.gadgeothek.domain
             Studentnumber = studentNumber;
         }
 
+        public Customer Update(Customer newCustomer)
+        {
+            Name = newCustomer.Name;
+            Password = newCustomer.Password;
+            Email = newCustomer.Email;
+            Studentnumber = newCustomer.Studentnumber;
+            return this;
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public override int GetHashCode()

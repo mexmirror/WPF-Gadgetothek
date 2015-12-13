@@ -68,16 +68,13 @@
     <Compile Include="ReservationWindow.xaml.cs">
       <DependentUpon>ReservationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="services\FilterService.cs" />
     <Compile Include="viewmodel\CustomerViewModel.cs" />
     <Compile Include="viewmodel\GadgetViewModel.cs" />
     <Compile Include="viewmodel\LoanViewModel.cs" />
     <Compile Include="viewmodel\ReservationViewModel.cs" />
     <Compile Include="viewmodel\ViewModel.cs" />
     <Page Include="CustomerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GadgetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,9 +96,6 @@
     </Compile>
     <Compile Include="CustomerView.xaml.cs">
       <DependentUpon>CustomerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GadgetView.xaml.cs">
-      <DependentUpon>GadgetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoanView.xaml.cs">
       <DependentUpon>LoanView.xaml</DependentUpon>

@@ -70,7 +70,6 @@ namespace ch.hsr.wpf.gadgeothek.ui
                     GadgetId = Gadget.InventoryNumber,
                     Id = Guid.NewGuid().ToString(),
                     PickupDate = DateTime.Now,
-                    ReturnDate = DateTime.Now.AddDays(7),
                 });
                 if (success)
                 {

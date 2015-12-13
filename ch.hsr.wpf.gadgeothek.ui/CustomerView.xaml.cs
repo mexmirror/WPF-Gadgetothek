@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using System.Windows.Shapes;
 using ch.hsr.wpf.gadgeothek.domain;
 using ch.hsr.wpf.gadgeothek.service;
 using ch.hsr.wpf.gadgeothek.ui.Controls;
+using ch.hsr.wpf.gadgeothek.ui.services;
 using ch.hsr.wpf.gadgeothek.ui.viewmodel;
 
 namespace ch.hsr.wpf.gadgeothek.ui
@@ -25,29 +27,34 @@ namespace ch.hsr.wpf.gadgeothek.ui
     /// </summary>
     public partial class CustomerView : UserControl
     {
-        private EditButton _editButton;
-        public CustomerViewModel CustomerViewModel;
-
+        private readonly EditButton _editButton;
+        public CustomerViewModel CustomerViewModel { get; }
+        public ReservationViewModel ReservationViewModel { get; }
+        public Customer CurrentCustomer { get; set; }
  
         public CustomerView()
         {
             InitializeComponent();
             DataContext = this;
             CustomerViewModel = new CustomerViewModel();
-            CustomerGrid.ItemsSource = CustomerViewModel.Collection;
+            //CustomerGrid.ItemsSource = CustomerViewModel.Collection;
+            ReservationViewModel = new ReservationViewModel();
+            //ReservationGrid.ItemsSource = ReservationViewModel.CurrentReservations;
             _editButton = new EditButton(EditButton);
             SetFormEditebility(false);
         }
-
         private void CustomerGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = CustomerGrid.SelectedItem;
             if (item != null)
             {
                 Customer customer = (Customer) item;
-                NameTextBox.Text = customer.Name;
-                EmailTextBox.Text = customer.Email;
-                StudentIdTextBox.Text = customer.Studentnumber;
+                CurrentCustomer = customer;
+                //NameTextBox.Text = customer.Name;
+                //EmailTextBox.Text = customer.Email;
+                //StudentIdTextBox.Text = customer.Studentnumber
+                var reservations = ReservationViewModel.Find(r => r.Customer.Equals(customer));
+                ReservationViewModel.UpdateCurrentReservations(reservations);
                 _editButton.EditBoxFilled = true;
                 _editButton.UpdateEditButton();
             }
@@ -93,6 +100,19 @@ namespace ch.hsr.wpf.gadgeothek.ui
             if (!success)
             {
                 MessageBox.Show("Customer cannot be deleted");
+            }
+        }
+
+        private void RemoveReservationButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Reservation reservation = (Reservation)ReservationGrid.SelectedItem;
+            if (reservation != null)
+            {
+                var success = ReservationViewModel.Delete(reservation);
+                if (!success)
+                {
+                    MessageBox.Show("Reservation cannot be deleted");
+                }
             }
         }
     }

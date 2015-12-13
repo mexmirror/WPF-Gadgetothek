@@ -26,12 +26,14 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
         public virtual bool Add(T element)
         {
             Collection.Add(element);
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add));
             return true;
         }
 
         public virtual bool Delete(T element)
         {
             Collection.Remove(element);
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove));
             return true;
         }
         public virtual List<T> Find(Predicate<T> predicate)

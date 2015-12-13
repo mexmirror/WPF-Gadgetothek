@@ -52,7 +52,7 @@
                 <Button Name="SaveButton" Content="Save" Click="SaveButton_OnClick"/>
             </StackPanel>
         </StackPanel>
-        <DataGrid ItemsSource="{Binding ReservationViewModel.CurrentReservations}" Name="ReservationGrid" Grid.Column="1" Grid.Row="1" Margin="2">
+        <DataGrid ItemsSource="{Binding ReservationFilterService.Filtered}" Name="ReservationGrid" Grid.Column="1" Grid.Row="1" Margin="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Gadget" Binding="{Binding Gadget.Name}" Width="0.33*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Reservation Date" Binding="{Binding ReservationDate, StringFormat=dd.MM.yyyy}" Width="0.33*"></DataGridTextColumn>

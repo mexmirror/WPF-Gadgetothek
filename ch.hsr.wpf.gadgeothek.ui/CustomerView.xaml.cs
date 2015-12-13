@@ -30,6 +30,7 @@ namespace ch.hsr.wpf.gadgeothek.ui
         private readonly EditButton _editButton;
         public CustomerViewModel CustomerViewModel { get; }
         public ReservationViewModel ReservationViewModel { get; }
+        public FilterService<Reservation> ReservationFilterService { get; } 
         public Customer CurrentCustomer { get; set; }
  
         public CustomerView()
@@ -37,9 +38,8 @@ namespace ch.hsr.wpf.gadgeothek.ui
             InitializeComponent();
             DataContext = this;
             CustomerViewModel = new CustomerViewModel();
-            //CustomerGrid.ItemsSource = CustomerViewModel.Collection;
             ReservationViewModel = new ReservationViewModel();
-            //ReservationGrid.ItemsSource = ReservationViewModel.CurrentReservations;
+            ReservationFilterService = new FilterService<Reservation>(ReservationViewModel.Collection);
             _editButton = new EditButton(EditButton);
             SetFormEditebility(false);
         }
@@ -53,8 +53,8 @@ namespace ch.hsr.wpf.gadgeothek.ui
                 //NameTextBox.Text = customer.Name;
                 //EmailTextBox.Text = customer.Email;
                 //StudentIdTextBox.Text = customer.Studentnumber
-                var reservations = ReservationViewModel.Find(r => r.Customer.Equals(customer));
-                ReservationViewModel.UpdateCurrentReservations(reservations);
+                ReservationFilterService.SetFilter(r => r.Customer.Equals(customer));
+                ReservationFilterService.FilterCollection();
                 _editButton.EditBoxFilled = true;
                 _editButton.UpdateEditButton();
             }

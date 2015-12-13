@@ -44,11 +44,6 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
             if (e.Notification.Target == typeof (Loan).Name.ToLower())
             {
                 Loan loan = e.Notification.DataAs<Loan>();
-                /*var temp = Collection.FirstOrDefault(l => l.Id == loan.Id);
-                if (temp != null)
-                {
-                    LoadCollection();
-                }*/
                 LoadCollection();
             }
         }

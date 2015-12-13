@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -15,11 +16,9 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
     {
         private readonly LibraryAdminService _adminService = App.Service;
         private readonly WebSocketClient _webSocketClient = App.WebSocketClient;
-        public ObservableCollection<Reservation> CurrentReservations { get; set; } 
         public ReservationViewModel()
         {
             Collection = new ObservableCollection<Reservation>();
-            CurrentReservations = new ObservableCollection<Reservation>();
             _webSocketClient.NotificationReceived += OnNotificateionRecieve;
             LoadCollection();
         }
@@ -28,12 +27,6 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
         {
             Collection.Clear();
             _adminService.GetAllReservations().ForEach((r) => Collection.Add(r));
-        }
-
-        public void UpdateCurrentReservations(List<Reservation> reservations)
-        {
-            CurrentReservations.Clear();
-            reservations.ForEach(r => CurrentReservations.Add(r));
         }
         public override bool Update(Reservation element)
         {
@@ -71,7 +64,6 @@ namespace ch.hsr.wpf.gadgeothek.ui.viewmodel
             {
                 Reservation reservation = e.Notification.DataAs<Reservation>();
                 LoadCollection();
-                CurrentReservations.Where(r => r.Id == reservation.Id).Select(r => r.Update(reservation));
             }
         }
     }

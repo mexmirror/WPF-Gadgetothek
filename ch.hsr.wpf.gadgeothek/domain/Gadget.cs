@@ -40,7 +40,6 @@ namespace ch.hsr.wpf.gadgeothek.domain
             Price = newGadget.Price;
             Manufacturer = newGadget.Manufacturer;
             Name = newGadget.Name;
-            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs());
             return this;
         }
 

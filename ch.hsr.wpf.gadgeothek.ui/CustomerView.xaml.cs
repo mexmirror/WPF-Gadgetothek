@@ -50,9 +50,9 @@ namespace ch.hsr.wpf.gadgeothek.ui
             {
                 Customer customer = (Customer) item;
                 CurrentCustomer = customer;
-                //NameTextBox.Text = customer.Name;
-                //EmailTextBox.Text = customer.Email;
-                //StudentIdTextBox.Text = customer.Studentnumber
+                NameTextBox.Text = customer.Name;
+                EmailTextBox.Text = customer.Email;
+                StudentIdTextBox.Text = customer.Studentnumber;
                 ReservationFilterService.SetFilter(r => r.Customer.Equals(customer));
                 ReservationFilterService.FilterCollection();
                 _editButton.EditBoxFilled = true;
